@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #F5F5EA;
+}
+
+.main_background{
+    background-image: url("/Images/mainBg.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.background-tint {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: multiply;
+  } 
