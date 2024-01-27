@@ -2,12 +2,42 @@ import { IoIosSearch } from "react-icons/io";
 import HomeHoverImage from "../components/HomeHoverImage";
 import EandPcard from "../components/EandPcard";
 import Footer from "../components/Footer";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useShop } from "../contexts/ShopContexts";
 
 // import SimpleSlider from "../components/Carousel";
 
-
 function Home() {
+  //----------- add_ons -----------------//
+
+  const api_string = "http://localhost:8000/Users/api";
+
+  const { cities, catagoriesData, search, setSearch } = useShop();
+
+  const handleSearchWhere = (e) => {
+    let name, value;
+    name = e.target.name;
+    value = e.target.value;
+    setSearch((prev) => {
+      const prev_data = { ...prev };
+      prev_data["where"] = value;
+      return prev_data;
+    });
+  };
+
+  const handleSearchWhat = (e) => {
+    let name, value;
+    name = e.target.name;
+    value = e.target.value;
+    setSearch((prev) => {
+      const prev_data = { ...prev };
+      prev_data["what"] = value;
+      return prev_data;
+    });
+  };
+
+  // --------------------------------------
   return (
     <div>
       <div className="h-screen lg:h-[90vh] w-full lg:w-[100vw] main_background -mt-[100px] flex flex-col justify-center items-center background-tint p-2">
@@ -23,25 +53,55 @@ function Home() {
               What
             </span>
             <div className="w-full  h-[90%]">
-              <select className="bg-transparent w-full h-full p-2">
+              <select
+                className="bg-transparent w-full h-full p-2"
+                name="searchOption"
+                onChange={handleSearchWhat}
+              >
                 <option>Hello</option>
-                <option>World</option>
+                {catagoriesData != null ? (
+                  catagoriesData.map((ele, index) => {
+                    return (
+                      <option key={index} value={ele}>
+                        {ele}
+                      </option>
+                    );
+                  })
+                ) : (
+                  <object>no catagories</object>
+                )}
               </select>
             </div>
           </div>
           <div className="flex justify-center items-center p-2 rounded-lg bg-[#e9f5e9] w-full">
             <span className="text-secondary p-2 font-semibold">Where</span>
             <div className="w-full  h-[90%]">
-              <select className=" w-full h-full bg-transparent p-2">
-                <option>Hello</option>
-                <option>World</option>
+              <select
+                className=" w-full h-full bg-transparent p-2"
+                onChange={handleSearchWhere}
+              >
+                <option>Search city</option>
+                {cities != null ? (
+                  cities.map((ele, index) => {
+                    return (
+                      <option key={index} value={ele}>
+                        {ele}
+                      </option>
+                    );
+                  })
+                ) : (
+                  <option>no cities</option>
+                )}
               </select>
             </div>
           </div>
           <button className="rounded-lg text-white w-full lg:w-[10%]  bg-secondary p-4 h-[90%] flex justify-center lg:justify-evenly items-center text-xl gap-2">
-            <Link to="/searched" className="flex justify-center items-center gap-x-3">
-            <IoIosSearch className="text-2xl font-bold" />
-            Search
+            <Link
+              to="/searched"
+              className="flex justify-center items-center gap-x-3"
+            >
+              <IoIosSearch className="text-2xl font-bold" />
+              Search
             </Link>
           </button>
         </div>
@@ -184,16 +244,25 @@ function Home() {
             phone_number={"97517604640"}
           />
         </div>
-       
+
         {/* <SimpleSlider/> */}
         <div className="h-[350px] w-[90vw] main_background rounded-lg background-tint mx-auto p-4 my-5 flex flex-col justify-center items-start lg:pl-20">
           <div className="">
-          <h1 className="text-2xl font-extrabold text-white ">Are You a Local Business?</h1>
-          <p className="text-xl text-white font-light">Join the community of hundreds of flourishing local business in your city.</p>
+            <h1 className="text-2xl font-extrabold text-white ">
+              Are You a Local Business?
+            </h1>
+            <p className="text-xl text-white font-light">
+              Join the community of hundreds of flourishing local business in
+              your city.
+            </p>
           </div>
           <div className="flex justify-center items-center">
-            <button className="bg-secondary text-white rounded-md py-2 px-3 mt-2 border-2">Get Started</button>
-            <button className="bg-white text-secondary rounded-md p-2 mt-2 ml-2 border-2 border-primary">Claim Your Business</button>
+            <button className="bg-secondary text-white rounded-md py-2 px-3 mt-2 border-2">
+              Get Started
+            </button>
+            <button className="bg-white text-secondary rounded-md p-2 mt-2 ml-2 border-2 border-primary">
+              Claim Your Business
+            </button>
           </div>
         </div>
         <Footer />
