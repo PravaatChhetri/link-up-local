@@ -72,7 +72,7 @@ export const ShopProvider = ({ children }) => {
       }
       setCatagoriesData(catag);
     }
-  }, [cityData]);
+  }, [cityData, catagData]);
 
   return cityData != null ? (
     <ShopContext.Provider

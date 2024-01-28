@@ -39,11 +39,12 @@ export default function SearchedPage() {
 
   //-----------------------------------
   return (
-    <div>
+    <div className="flex justify-start items-center p-5 gap-5">
       {searchResult != null && result.length > 0 ? (
-        result.map((ele) => {
+        result.map((ele, index) => {
           return (
             <EandPcard
+              key={index}
               name={ele["shop_data"]["seller_name"]}
               image={"/Images/restrauant.jpeg"}
               rating={ele["shop_data"]["rating_avg"]}
