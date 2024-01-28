@@ -15,10 +15,19 @@ function Home() {
 
   const { cities, catagoriesData, search, setSearch } = useShop();
 
+  // useEffect(() => {
+  //   setSearch((prev) => {
+  //     const prev_data = { ...prev };
+  //     prev_data["where"] = "";
+  //     prev_data["what"] = "";
+  //     return prev_data;
+  //   });
+  // }, []);
+
   const handleSearchWhere = (e) => {
     let name, value;
-    name = e.target.name;
-    value = e.target.value;
+    name = e.target.name.toLowerCase();
+    value = e.target.value.toLowerCase();
     setSearch((prev) => {
       const prev_data = { ...prev };
       prev_data["where"] = value;
@@ -30,6 +39,17 @@ function Home() {
     let name, value;
     name = e.target.name;
     value = e.target.value;
+    setSearch((prev) => {
+      const prev_data = { ...prev };
+      prev_data["what"] = value;
+      return prev_data;
+    });
+  };
+
+  const handleCatagButton = (e) => {
+    let value;
+    value = e.target.value;
+    console.log(value);
     setSearch((prev) => {
       const prev_data = { ...prev };
       prev_data["what"] = value;
@@ -58,7 +78,7 @@ function Home() {
                 name="searchOption"
                 onChange={handleSearchWhat}
               >
-                <option>Hello</option>
+                <option>searh with catagory</option>
                 {catagoriesData != null ? (
                   catagoriesData.map((ele, index) => {
                     return (
@@ -119,7 +139,11 @@ function Home() {
                 fill="white"
               />
             </svg>
-            <p>Automotive</p>
+            <Link to="/searched">
+              <button onClick={handleCatagButton} value={"automotive"}>
+                Automotive
+              </button>
+            </Link>
           </div>
           <div className="flex flex-col justify-between items-center  min-w-[125px] p-4  bg-[#ffffff] bg-opacity-25 hover:bg-secondary hover:bg-opacity-100 transition-all ease-in delay-100 ">
             <svg
@@ -134,7 +158,11 @@ function Home() {
                 fill="white"
               />
             </svg>
-            <p>Beauty & Spa</p>
+            <Link to="/searched">
+              <button onClick={handleCatagButton} value={"beauty"}>
+                Beauty & Spa
+              </button>
+            </Link>
           </div>
           <div className="flex flex-col justify-between items-center w-[125px] p-4 bg-opacity-25 bg-white hover:bg-secondary hover:bg-opacity-100 transition-all ease-in delay-100 ">
             <svg
@@ -149,7 +177,11 @@ function Home() {
                 fill="white"
               />
             </svg>
-            <p>Hotels</p>
+            <Link to="/searched">
+              <button onClick={handleCatagButton} value={"hotels"}>
+                Hotels
+              </button>
+            </Link>
           </div>
           <div className="flex flex-col justify-between items-center w-[125px] p-4 bg-opacity-25 bg-white hover:bg-secondary hover:bg-opacity-100 transition-all ease-in delay-100 ">
             <svg
@@ -164,7 +196,11 @@ function Home() {
                 fill="white"
               />
             </svg>
-            <p>Restaurant</p>
+            <Link to="/searched">
+              <button onClick={handleCatagButton} value={"restaurant"}>
+                Restaurant
+              </button>
+            </Link>
           </div>
           <div className="flex flex-col justify-between items-center  w-[125px] lg:rounded-r-full p-4 bg-opacity-25 bg-white hover:bg-secondary hover:bg-opacity-100 transition-all ease-in delay-100 ">
             <svg
@@ -179,7 +215,11 @@ function Home() {
                 fill="white"
               />
             </svg>
-            <p>Shopping</p>
+            <Link to="/searched">
+              <button onClick={handleCatagButton} value={"shopping"}>
+                Shopping
+              </button>
+            </Link>
           </div>
         </div>
       </div>

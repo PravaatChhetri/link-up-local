@@ -18,7 +18,8 @@ export const ShopProvider = ({ children }) => {
     where: "",
   });
 
-  const api_string = "http://localhost:8000/Users/api";
+  const api_string = "https://linkuplocal.onrender.com/Users/api";
+  //when trying in production change traget to https://linkuplocal.onrender.com/Users/api
 
   useEffect(() => {
     const fetchDataCityWise = async () => {
