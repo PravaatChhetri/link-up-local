@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8000", // Replace with your Django backend URL
+        target: "https://linkuplocal.onrender.com", // Replace with your Django backend URL
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
@@ -16,3 +16,5 @@ export default defineConfig({
 });
 
 //when trying in production change traget to https://linkuplocal.onrender.com
+//for development http://localhost:8000
+//also change this string in different files

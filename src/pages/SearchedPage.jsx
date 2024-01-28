@@ -12,20 +12,27 @@ export default function SearchedPage() {
   const city = search["where"];
   const cat = search["what"];
 
-  for (let [key, value] of Object.entries(cityData)) {
-    if (key == city || city.length == 0) {
-      value.forEach((ele) => {
-        ele.catagories.forEach((shop) => {
-          if (shop == cat || cat.length == 0) {
-            let exist = result.find((id) => id.provider_id === ele.provider_id);
+  console.log(city, cat, search);
+  if (
+    search != null &&
+    (search["what"].length > 0 || search["where"].length > 0)
+  ) {
+    for (let [key, value] of Object.entries(cityData)) {
+      if (key === city || city.length === 0) {
+        value.forEach((ele) => {
+          ele.catagories.forEach((shop) => {
+            if (shop === cat || cat.length === 0) {
+              let exist = result.find(
+                (id) => id.provider_id === ele.provider_id
+              );
 
-            if (!exist) result.push(ele);
-          }
+              if (!exist) result.push(ele);
+            }
+          });
         });
-      });
+      }
     }
   }
-
   useEffect(() => {
     setSearchResult([result]);
   }, []);
@@ -42,7 +49,7 @@ export default function SearchedPage() {
               rating={ele["shop_data"]["rating_avg"]}
               reviews={ele["shop_data"]["rating_review"]}
               pricing={ele["shop_data"]["pricing"]}
-              type={ele["catagories"]}
+              type={ele["catagories"].join(", ")}
               place={ele["address"]["city"]}
               phone_number={ele["shop_data"]["contact_info"]["phone_no"]}
             />
