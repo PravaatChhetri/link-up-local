@@ -1,17 +1,22 @@
 // import React from 'react'
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle, BsSearch } from "react-icons/bs";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Login from "./Login";
 import { useShop } from "../contexts/ShopContexts";
 export default function Navbar({ children }) {
   const [open, setOpen] = useState(false);
 
+  
   //-----------------------namann_add_ons---------------------------
-
+  
   const { cities, catagoriesData, search, setSearch } = useShop();
+ 
+  
+
 
   const handleCatagNav = (e) => {
     e.preventDefault();
@@ -71,41 +76,59 @@ export default function Navbar({ children }) {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <img src="/Images/logo.png" alt="logo" className="w-20 h-20" />
+            <Link to="/">
+              <img src="/Images/logo.png" alt="logo" className="w-20 h-20" />
+            </Link>
           </div>
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal gap-5 text-white">
+           
+                
+                  <li>
+                    <select
+                      className="bg-transparent"
+                      onChange={handleCatagNav}
+                    >
+                      <option>Explore Categories</option>
+                      {catagoriesData != null ? (
+                        catagoriesData.map((ele, index) => {
+                          return (
+                            <option key={index} value={ele}>
+                              {ele}
+                            </option>
+                          );
+                        })
+                      ) : (
+                        <object>no catagories</object>
+                      )}
+                    </select>
+                  </li>
+                  <li>
+                    <select className="bg-transparent" onChange={handleCityNav}>
+                      <option>Explore Locations</option>
+                      {cities != null ? (
+                        cities.map((ele, index) => {
+                          return (
+                            <option key={index} value={ele}>
+                              {ele}
+                            </option>
+                          );
+                        })
+                      ) : (
+                        <option>no cities</option>
+                      )}
+                    </select>
+                  </li>
+             
               <li>
-                <select className="bg-transparent" onChange={handleCatagNav}>
-                  <option>Explore Categories</option>
-                  {catagoriesData != null ? (
-                    catagoriesData.map((ele, index) => {
-                      return (
-                        <option key={index} value={ele}>
-                          {ele}
-                        </option>
-                      );
-                    })
-                  ) : (
-                    <object>no catagories</object>
-                  )}
-                </select>
-              </li>
-              <li>
-                <select className="bg-transparent" onChange={handleCityNav}>
-                  <option>Explore Locations</option>
-                  {cities != null ? (
-                    cities.map((ele, index) => {
-                      return (
-                        <option key={index} value={ele}>
-                          {ele}
-                        </option>
-                      );
-                    })
-                  ) : (
-                    <option>no cities</option>
-                  )}
-                </select>
+                <div className=" border-[1px] border-white rounded-xl w-[300px] p-0 ">
+                  <input
+                    type="search"
+                    placeholder="Search"
+                    className="bg-transparent border-white p-2 w-[255px] focus:outline-none text-base"
+                  />
+                  <BsSearch className="text-xl" />
+                </div>
               </li>
               <li>
                 <button className="bg-secondary text-white font-medium">
@@ -144,13 +167,75 @@ export default function Navbar({ children }) {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200">
+        <ul className="menu p-4 w-80 min-h-full bg-primary space-y-3">
           {/* Sidebar content here */}
+          <Link to="/" className="flex w-full justify-center items-center">
+            <img src="/Images/logo.png" alt="logo" className="w-40 h-40" />
+          </Link>
           <li>
-            <a>Sidebar Item 1</a>
+            <div className="w-[250px] p-0 ml-3 border-[1px] border-[#000]">
+              <input
+                type="search"
+                placeholder="Search"
+                className="bg-transparent w-[210px] p-1 focus:outline-none text-base"
+              />
+              <BsSearch />
+            </div>
           </li>
           <li>
-            <a>Sidebar Item 2</a>
+            <select className="bg-transparent py-4" onChange={handleCatagNav}>
+              <option>Explore Categories</option>
+              {catagoriesData != null ? (
+                catagoriesData.map((ele, index) => {
+                  return (
+                    <option key={index} value={ele}>
+                      {ele}
+                    </option>
+                  );
+                })
+              ) : (
+                <object>no catagories</object>
+              )}
+            </select>
+          </li>
+          <li>
+            <select className="bg-transparent  py-4" onChange={handleCityNav}>
+              <option>Explore Locations</option>
+              {cities != null ? (
+                cities.map((ele, index) => {
+                  return (
+                    <option key={index} value={ele}>
+                      {ele}
+                    </option>
+                  );
+                })
+              ) : (
+                <option>no cities</option>
+              )}
+            </select>
+          </li>
+         
+          <li>
+            <button className=" font-medium py-4">
+              <Link
+                to="/add-listing"
+                className="flex justify-center items-center gap-x-3"
+              >
+                <IoIosAddCircleOutline className="text-xl" />
+                Add Listing
+              </Link>
+            </button>
+          </li>
+          <li>
+            <button
+              className="font-medium  gap-3 py-4"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <BsPersonCircle className="text-xl" />
+              Sign In
+            </button>
           </li>
         </ul>
       </div>
