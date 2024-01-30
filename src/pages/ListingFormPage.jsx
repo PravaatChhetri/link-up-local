@@ -1,18 +1,15 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
-
 
 // Assuming each of these components are in separate files and exported as default
-import PrimaryListingDetails from '../components/PrimaryListingDetails';
-import AdditionalDetails from '../components/AdditionalDetails';
-import FAQsAndMoreInfo from '../components/FAQandMoreInfo';
-import MediaAndSubmitForm from '../components/MediaAndSubmitForm';
+import PrimaryListingDetails from './PrimaryListingDetails';
+import AdditionalDetails from './AdditionalDetails';
+import FAQsAndMoreInfo from './FAQsAndMoreInfo';
+import MediaAndSubmitForm from './MediaAndSubmitForm';
 
 const ListingFormPage = () => {
-  
   return (
     <div className="container mx-auto p-4">
-      <form className="space-y-8 divide-y divide-gray-200  md:w-1/2 mx-auto">
+      <form className="space-y-8 divide-y divide-gray-200">
         <PrimaryListingDetails />
         <AdditionalDetails />
         <FAQsAndMoreInfo />
@@ -28,7 +25,6 @@ const ListingFormPage = () => {
           </div>
         </div>
       </form>
-     
     </div>
   );
 };
