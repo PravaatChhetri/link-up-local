@@ -12,6 +12,7 @@ export default function Navbar({ children }) {
   const [open, setOpen] = useState(false);
 
   //-----------------------namann_add_ons---------------------------
+  console.log("navbar");
 
   const { cityData, cities, catagoriesData, search, setSearch } = useShop();
   const [typeSearch, setTypeSearch] = useState("");
@@ -54,7 +55,7 @@ export default function Navbar({ children }) {
 
   const handleSuggestionClick = (e) => {
     setTypeSearch(e.target.value);
-
+    console.log(e.target.value);
     window.location.href = `/searched?what=${""}&name=${
       e.target.value
     }&where=${""}`;
@@ -168,7 +169,7 @@ export default function Navbar({ children }) {
                       suggestion.map((ele, index) => (
                         <button
                           key={index}
-                          value={typeSearch}
+                          value={ele}
                           className="p-2 hover:bg-secondary cursor-pointer w-full text-left w-full rounded-md"
                           onClick={handleSuggestionClick}
                         >

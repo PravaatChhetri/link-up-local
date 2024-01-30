@@ -1,5 +1,5 @@
 // doing for search
-// console.log("working");
+console.log("working");
 var search_result = [];
 
 const api_string = "https://linkuplocal.onrender.com/Users/api";
