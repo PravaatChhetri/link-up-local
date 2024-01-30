@@ -11,18 +11,9 @@ import { useShop } from "../contexts/ShopContexts";
 function Home() {
   //----------- add_ons -----------------//
 
-  const api_string = "http://localhost:8000/Users/api";
+  const api_string = "https://linkuplocal.onrender.com/Users/api";
 
   const { cities, catagoriesData, search, setSearch } = useShop();
-
-  // useEffect(() => {
-  //   setSearch((prev) => {
-  //     const prev_data = { ...prev };
-  //     prev_data["where"] = "";
-  //     prev_data["what"] = "";
-  //     return prev_data;
-  //   });
-  // }, []);
 
   const handleSearchWhere = (e) => {
     let name, value;
@@ -37,8 +28,8 @@ function Home() {
 
   const handleSearchWhat = (e) => {
     let name, value;
-    name = e.target.name;
-    value = e.target.value;
+    name = e.target.name.toLowerCase();
+    value = e.target.value.toLowerCase();
     setSearch((prev) => {
       const prev_data = { ...prev };
       prev_data["what"] = value;
@@ -48,8 +39,8 @@ function Home() {
 
   const handleCatagButton = (e) => {
     let value;
-    value = e.target.value;
-    console.log(value);
+    value = e.target.value.toLowerCase();
+
     setSearch((prev) => {
       const prev_data = { ...prev };
       prev_data["what"] = value;
