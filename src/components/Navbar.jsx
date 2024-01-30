@@ -173,6 +173,16 @@ export default function Navbar({ children }) {
             <img src="/Images/logo.png" alt="logo" className="w-40 h-40" />
           </Link>
           <li>
+            <div className="w-[250px] p-0 ml-3 border-[1px] border-[#000]">
+              <input
+                type="search"
+                placeholder="Search"
+                className="bg-transparent w-[210px] p-1 focus:outline-none text-base"
+              />
+              <BsSearch />
+            </div>
+          </li>
+          <li>
             <select className="bg-transparent py-4" onChange={handleCatagNav}>
               <option>Explore Categories</option>
               {catagoriesData != null ? (
@@ -204,16 +214,7 @@ export default function Navbar({ children }) {
               )}
             </select>
           </li>
-          <li>
-            <div>
-              <input
-                type="search"
-                placeholder="Search"
-                className="bg-transparent border-[1px] border-white py-4 px-2 w-full"
-              />
-              <BsSearch />
-            </div>
-          </li>
+         
           <li>
             <button className=" font-medium py-4">
               <Link
