@@ -213,12 +213,7 @@ export default function SignInModal({ setOpen, open }) {
       >
         Sign Up
       </button>
-      <a
-        className="inline-block align-baseline font-bold text-sm text-secondary hover:text-blue-800"
-        href="#"
-      >
-        Already have an account?
-      </a>
+    
     </div>
   </form>
         </div>
