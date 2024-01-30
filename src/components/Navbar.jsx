@@ -12,7 +12,7 @@ export default function Navbar({ children }) {
   const [open, setOpen] = useState(false);
 
   //-----------------------namann_add_ons---------------------------
-  console.log("navbar");
+  // console.log("navbar");
 
   const { cityData, cities, catagoriesData, search, setSearch } = useShop();
   const [typeSearch, setTypeSearch] = useState("");

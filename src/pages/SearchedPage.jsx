@@ -14,7 +14,7 @@ export default function SearchedPage() {
   const cat = search["what"];
 
   // Accessing the query parameters
-  console.log("search");
+  // console.log("search");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
