@@ -14,6 +14,7 @@ export default function SearchedPage() {
   const cat = search["what"];
 
   // Accessing the query parameters
+  // console.log("search");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -21,11 +22,11 @@ export default function SearchedPage() {
     const what = urlParams.get("what");
     const where = urlParams.get("where");
 
-    console.log(name, what, where);
+    // console.log(name, what, where);
     if (name != null || what != null || where != null) {
       navBarSearch(name, what, where)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           result = res;
           return result;
         })
@@ -36,9 +37,9 @@ export default function SearchedPage() {
     setSearchResult(result);
   }, []);
 
-  useEffect(() => {
-    // console.log(searchResult);
-  }, [searchResult]);
+  // useEffect(() => {
+  //   // console.log(searchResult);
+  // }, [searchResult]);
 
   if (
     search != null &&
