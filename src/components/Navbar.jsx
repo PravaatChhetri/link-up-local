@@ -7,43 +7,71 @@ import { BsPersonCircle, BsSearch } from "react-icons/bs";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Login from "./Login";
 import { useShop } from "../contexts/ShopContexts";
+
 export default function Navbar({ children }) {
   const [open, setOpen] = useState(false);
 
-  
   //-----------------------namann_add_ons---------------------------
-  
-  const { cities, catagoriesData, search, setSearch } = useShop();
- 
-  
 
+  const { cityData, cities, catagoriesData, search, setSearch } = useShop();
+  const [typeSearch, setTypeSearch] = useState("");
+  const [suggestion, setSuggestions] = useState([]);
+  const [suggList, setSuggList] = useState([]);
+
+  const handleSearchButton = (e) => {
+    console.log(typeSearch);
+    window.location.href = `/searched?what=${""}&name=${typeSearch}&where=${""}`;
+  };
+
+  const handleTypeSearch = (e) => {
+    let name, search_value;
+    name = e.target.name;
+    search_value = e.target.value.toLowerCase();
+    setTypeSearch(search_value);
+
+    // console.log(cityData);
+    let search_list = new Array();
+    let search_res_list = new Array();
+
+    let total_res = 0;
+
+    for (const [key, value] of Object.entries(cityData)) {
+      for (let i = 0; i < value.length; i++) {
+        const shop_name = value[i].shop_data.shop_name;
+        if (shop_name.includes(search_value) && total_res < 5) {
+          total_res++;
+          search_list.push(shop_name);
+          search_res_list.push(value[i]);
+          // console.log(shop_name);
+        }
+      }
+    }
+
+    setSuggList(search_res_list);
+    setSuggestions(search_list);
+    // console.log(suggList);
+  };
+
+  const handleSuggestionClick = (e) => {
+    setTypeSearch(e.target.value);
+
+    window.location.href = `/searched?what=${""}&name=${
+      e.target.value
+    }&where=${""}`;
+  };
 
   const handleCatagNav = (e) => {
-    e.preventDefault();
     let value;
     value = e.target.value;
 
-    setSearch((prev) => {
-      const prev_data = { ...prev };
-      prev_data["what"] = value;
-      return prev_data;
-    });
-
-    if (search["where"].length > 0) window.location.href = "/searched";
+    window.location.href = `/searched?what=${value}&name=${""}&where=${""}`;
   };
 
   const handleCityNav = (e) => {
-    e.preventDefault();
     let value;
     value = e.target.value;
 
-    setSearch((prev) => {
-      const prev_data = { ...prev };
-      prev_data["where"] = value;
-      return prev_data;
-    });
-
-    //   if (search["where"].length > 0) window.location.href = "/searched";
+    window.location.href = `/searched?what=${""}&name=${""}&where=${value}`;
   };
 
   //----------------------------------------------------------------
@@ -82,54 +110,78 @@ export default function Navbar({ children }) {
           </div>
           <div className="flex-none hidden lg:block">
             <ul className="menu menu-horizontal gap-5 text-white">
-           
-                
-                  <li>
-                    <select
-                      className="bg-transparent"
-                      onChange={handleCatagNav}
-                    >
-                      <option>Explore Categories</option>
-                      {catagoriesData != null ? (
-                        catagoriesData.map((ele, index) => {
-                          return (
-                            <option key={index} value={ele}>
-                              {ele}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <object>no catagories</object>
-                      )}
-                    </select>
-                  </li>
-                  <li>
-                    <select className="bg-transparent" onChange={handleCityNav}>
-                      <option>Explore Locations</option>
-                      {cities != null ? (
-                        cities.map((ele, index) => {
-                          return (
-                            <option key={index} value={ele}>
-                              {ele}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <option>no cities</option>
-                      )}
-                    </select>
-                  </li>
-             
               <li>
-                <div className=" border-[1px] border-white rounded-xl w-[300px] p-0 ">
-                  <input
-                    type="search"
-                    placeholder="Search"
-                    className="bg-transparent border-white p-2 w-[255px] focus:outline-none text-base"
-                  />
-                  <BsSearch className="text-xl" />
-                </div>
+                <select className="bg-transparent" onChange={handleCatagNav}>
+                  <option>Explore Categories</option>
+                  {catagoriesData != null ? (
+                    catagoriesData.map((ele, index) => {
+                      return (
+                        <option key={index} value={ele}>
+                          {ele}
+                        </option>
+                      );
+                    })
+                  ) : (
+                    <object>no catagories</object>
+                  )}
+                </select>
               </li>
+              <li>
+                <select className="bg-transparent" onChange={handleCityNav}>
+                  <option>Explore Locations</option>
+                  {cities != null ? (
+                    cities.map((ele, index) => {
+                      return (
+                        <option key={index} value={ele}>
+                          {ele}
+                        </option>
+                      );
+                    })
+                  ) : (
+                    <option>no cities</option>
+                  )}
+                </select>
+              </li>
+
+              <div>
+                <li className="relative">
+                  <div className="relative border-[1px] border-white rounded-xl w-[300px] p-0 ">
+                    <input
+                      type="search"
+                      placeholder="Search"
+                      className="bg-transparent border-white p-2 w-[255px] focus:outline-none text-base"
+                      name="typeSearch"
+                      value={typeSearch}
+                      onChange={handleTypeSearch}
+                    />
+                    <button type="submit" onClick={handleSearchButton}>
+                      <BsSearch className="text-xl" />
+                    </button>
+                  </div>
+
+                  <div
+                    className={`absolute left-0 ${
+                      typeSearch ? "top-full" : "invisible"
+                    } mt-1 bg-transparent border-[1px] border-gray-300 rounded-md shadow-md w-[300px] overflow-hidden z-10 flex flex-col items-start`}
+                  >
+                    {suggestion != null && suggestion.length > 0 ? (
+                      suggestion.map((ele, index) => (
+                        <button
+                          key={index}
+                          value={typeSearch}
+                          className="p-2 hover:bg-secondary cursor-pointer w-full text-left w-full rounded-md"
+                          onClick={handleSuggestionClick}
+                        >
+                          {ele}
+                        </button>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </li>
+              </div>
+
               <li>
                 <button className="bg-secondary text-white font-medium">
                   <Link
@@ -214,7 +266,7 @@ export default function Navbar({ children }) {
               )}
             </select>
           </li>
-         
+
           <li>
             <button className=" font-medium py-4">
               <Link

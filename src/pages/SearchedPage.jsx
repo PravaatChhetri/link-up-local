@@ -2,17 +2,44 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import { useShop } from "../contexts/ShopContexts";
 import EandPcard from "../components/EandPcard";
 import { bool, element } from "prop-types";
+import { navBarSearch } from "../contexts/search";
 
 export default function SearchedPage() {
   //-----------------naman_add_ons-----
   const { cityData, search, setSearch } = useShop();
   const [searchResult, setSearchResult] = useState([]);
 
-  const result = [];
+  var result = [];
   const city = search["where"];
   const cat = search["what"];
 
-  console.log(city, cat, search);
+  // Accessing the query parameters
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+    const what = urlParams.get("what");
+    const where = urlParams.get("where");
+
+    console.log(name, what, where);
+    if (name != null || what != null || where != null) {
+      navBarSearch(name, what, where)
+        .then((res) => {
+          console.log(res);
+          result = res;
+          return result;
+        })
+        .then((data) => {
+          setSearchResult(data);
+        });
+    }
+    setSearchResult(result);
+  }, []);
+
+  useEffect(() => {
+    // console.log(searchResult);
+  }, [searchResult]);
+
   if (
     search != null &&
     (search["what"].length > 0 || search["where"].length > 0)
@@ -33,19 +60,17 @@ export default function SearchedPage() {
       }
     }
   }
-  useEffect(() => {
-    setSearchResult([result]);
-  }, []);
 
   //-----------------------------------
+
   return (
     <div className="flex justify-start items-center p-5 gap-5">
-      {searchResult != null && result.length > 0 ? (
-        result.map((ele, index) => {
+      {searchResult != null && searchResult.length > 0 ? (
+        searchResult.map((ele, index) => {
           return (
             <EandPcard
               key={index}
-              name={ele["shop_data"]["seller_name"]}
+              name={ele["shop_data"]["shop_name"]}
               image={"/Images/restrauant.jpeg"}
               rating={ele["shop_data"]["rating_avg"]}
               reviews={ele["shop_data"]["rating_review"]}
