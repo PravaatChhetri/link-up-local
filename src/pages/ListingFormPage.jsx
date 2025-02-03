@@ -1,10 +1,8 @@
-import React from 'react';
-
 // Assuming each of these components are in separate files and exported as default
-import PrimaryListingDetails from './PrimaryListingDetails';
-import AdditionalDetails from './AdditionalDetails';
-import FAQsAndMoreInfo from './FAQsAndMoreInfo';
-import MediaAndSubmitForm from './MediaAndSubmitForm';
+import PrimaryListingDetails from "./PrimaryListingDetails";
+import AdditionalDetails from "./AdditionalDetails";
+import FAQsAndMoreInfo from "./FAQsAndMoreInfo";
+import MediaAndSubmitForm from "./MediaAndSubmitForm";
 
 const ListingFormPage = () => {
   return (

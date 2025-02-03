@@ -3,7 +3,6 @@ import HomeHoverImage from "../components/HomeHoverImage";
 import EandPcard from "../components/EandPcard";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import { useShop } from "../contexts/ShopContexts";
 
 // import SimpleSlider from "../components/Carousel";
@@ -11,9 +10,9 @@ import { useShop } from "../contexts/ShopContexts";
 function Home() {
   //----------- add_ons -----------------//
 
-  const api_string = "http://localhost:8000/Users/api";
+  // const api_string = "http://localhost:8000/Users/api";
 
-  const { cities, catagoriesData, search, setSearch } = useShop();
+  const { cities, catagoriesData, setSearch } = useShop();
 
   // useEffect(() => {
   //   setSearch((prev) => {
@@ -25,8 +24,8 @@ function Home() {
   // }, []);
 
   const handleSearchWhere = (e) => {
-    let name, value;
-    name = e.target.name.toLowerCase();
+    let value;
+    // name = e.target.name.toLowerCase();
     value = e.target.value.toLowerCase();
     setSearch((prev) => {
       const prev_data = { ...prev };
@@ -36,8 +35,8 @@ function Home() {
   };
 
   const handleSearchWhat = (e) => {
-    let name, value;
-    name = e.target.name;
+    let value;
+    // name = e.target.name;
     value = e.target.value;
     setSearch((prev) => {
       const prev_data = { ...prev };
