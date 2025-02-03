@@ -8,21 +8,7 @@ import { useShop } from "../contexts/ShopContexts";
 // import SimpleSlider from "../components/Carousel";
 
 function Home() {
-  //----------- add_ons -----------------//
-
-  // const api_string = "http://localhost:8000/Users/api";
-
   const { cities, catagoriesData, setSearch } = useShop();
-
-  // useEffect(() => {
-  //   setSearch((prev) => {
-  //     const prev_data = { ...prev };
-  //     prev_data["where"] = "";
-  //     prev_data["what"] = "";
-  //     return prev_data;
-  //   });
-  // }, []);
-
   const handleSearchWhere = (e) => {
     let value;
     // name = e.target.name.toLowerCase();
@@ -36,8 +22,8 @@ function Home() {
 
   const handleSearchWhat = (e) => {
     let value;
-    // name = e.target.name;
-    value = e.target.value;
+    // name = e.target.name.toLowerCase();
+    value = e.target.value.toLowerCase();
     setSearch((prev) => {
       const prev_data = { ...prev };
       prev_data["what"] = value;
@@ -47,8 +33,8 @@ function Home() {
 
   const handleCatagButton = (e) => {
     let value;
-    value = e.target.value;
-    console.log(value);
+    value = e.target.value.toLowerCase();
+
     setSearch((prev) => {
       const prev_data = { ...prev };
       prev_data["what"] = value;
